@@ -1,0 +1,26 @@
+
+JAVA VERSION:
+
+willemc@battleship:~/devv/jdk1.6.0_10/bin$ ./java -version
+java version "1.6.0_10"
+Java(TM) SE Runtime Environment (build 1.6.0_10-b33)
+Java HotSpot(TM) Server VM (build 11.0-b15, mixed mode)
+
+
+
+PLATFORM VERSION:
+
+willemc@battleship:~$ uname -a
+Linux battleship 2.6.26-1-686 #1 SMP Wed Nov 26 19:14:11 UTC 2008 i686 GNU/Linux
+
+willemc@battleship:~$ cat /etc/apt/sources.list | grep main
+deb http://ftp.nl.debian.org/debian/ unstable main non-free contrib
+
+
+
+IDE VERSION:
+
+Eclipse SDK
+Version: 3.3.2
+Build id: M20080221-1800
+

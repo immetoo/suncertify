@@ -1,0 +1,50 @@
+#
+# Ignore files in the suncertify project.
+#
+
+# Ignore project resources
+bin
+
+# Ignore maven resources
+target
+
+# Ignore npm resources
+node_modules
+
+# Ignore binary files and formats
+*.o
+*.class
+*.old
+*.log
+*.bak
+*.backup
+*.dat
+*.data
+*.gif
+*.bmp
+*.pdf
+*.doc
+*.zip
+*.gz
+*.db
+*.ini
+
+# Ignore ~ backup files.
+*~
+
+# Ignore some eclipse files
+.settings
+.classpath
+.project
+
+# Ignore netbeans directory
+nbproject
+
+# Ignore mac finder files
+.DS_Store
+
+# Ignore windows files. 
+# none (done by .db and .ini)
+
+# Ignore kde dolphin files
+.directory

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="suncertify" default="doSubmissionBuild" basedir="../." >
+
+	<property name="dir_build"			value="dist" />
+	<property name="dir_src"			value="src" />
+	<property name="dir_classes"		value="bin" />
+	<property name="dir_resources"		value="resources" />
+		
+	<property name="file_submission"	value="submission.jar"/>
+	<property name="file_program"		value="runme.jar"/>
+	<property name="file_version"		value="version.txt"/>
+	<property name="file_choices"		value="choices.txt"/>
+	<property name="file_db" 			value="db-1x3.db"/>
+	<property name="file_instructions"	value="instructions.html"/>
+	
+	
+	<!-- Task execution order list -->
+	<target name="doSubmissionBuild" depends="cleanDist,createDist,compile,createHelpDocs,packProgram,createJavaDocs" />
+	
+	<!-- Cleanup the dist directory -->
+	<target name="cleanDist">
+		<delete includeemptydirs="true">
+			<fileset dir="${dir_build}" includes="**/*" />
+		</delete>
+	</target>
+	
+	<!-- copy most requirements into dist dir -->
+	<target name="createDist">
+		<mkdir dir="${dir_build}/code"/>
+		<mkdir dir="${dir_build}/docs"/>
+		<mkdir dir="${dir_build}/help"/>
+		<mkdir dir="${dir_build}/javadoc"/>
+		
+		<copy todir="${dir_build}/code">			<fileset dir="${dir_src}"/></copy>
+		<copy todir="${dir_build}/code/resources">	<fileset dir="${dir_resources}"/></copy>
+		<copy todir="${dir_build}"			file="doc/${file_version}"/>
+		<copy todir="${dir_build}/docs"		file="doc/${file_choices}"/>
+		<copy todir="${dir_build}"			file="doc/submission/${file_db}"/>
+		<copy todir="${dir_build}/docs"		file="doc/submission/${file_instructions}"/>
+	</target>
+
+	<!-- Compile the java src -->	
+	<target name="compile">
+		<javac srcdir="${dir_src}"
+		         destdir="${dir_classes}"
+		         debug="on"
+		         source="1.5"
+		  />
+	</target>
+	
+	<target name="packProgram" >
+		<jar destfile="${dir_build}/${file_program}"  basedir="${dir_classes}" includes="suncertify/**/*"></jar>
+	</target>
+	
+	<target name="createJavaDocs">
+		<javadoc
+			destdir="${dir_build}/docs/javadoc"
+			author="true"
+			version="true"
+			use="true"
+			windowtitle="Suncertify Application Submission"
+			
+			packagenames="suncertify.**/*"
+			sourcepath="${dir_src}"
+			defaultexcludes="yes"
+			>
+			<doctitle><![CDATA[<h1>Suncertify Application Submission (Version 1.1.3)</h1>]]></doctitle>
+			<bottom><![CDATA[<i>Copyright &#169; 2008 Willem Cazander All Rights Reserved.</i>]]></bottom>
+			
+			<!--
+			<tag name="todo" scope="all" description="To do:"/>
+			<group title="Group 1 Packages" packages="com.dummy.test.a*"/>
+			<group title="Group 2 Packages" packages="com.dummy.test.b*:com.dummy.test.c*"/>
+						
+			Geeft error:
+			<link href="http://developer.java.sun.com/developer/products/xml/docs/api/"/>
+			-->
+			<link href="http://java.sun.com/j2se/1.5.0/docs/api/"/>
+		</javadoc>
+	</target>
+	
+	<target name="createHelpDocs">
+		<!-- Note: this requires docbook the be installed -->
+		<property name="sheet" value="/usr/share/xml/docbook/stylesheet/nwalsh/javahelp/javahelp.xsl" />
+		<property name="loc_help"		value="dist/docs/help/" />
+		<property name="loc_help_src"	value="doc/help/" />
+		<xslt basedir="${loc_help_src}" destdir="${loc_help}" extension=".xml" style="${sheet}" force="true">
+			<factory name="com.icl.saxon.TransformerFactoryImpl" lib="build/lib/saxon6.jar"/>
+			<param name="base.dir" expression="../${loc_help}"/>
+			<param name="use.id.as.filename" expression="1"/>
+			<param name="toc.section.depth" expression="4"/>
+		</xslt>
+	</target>
+</project>

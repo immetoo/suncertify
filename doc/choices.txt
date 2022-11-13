@@ -1,0 +1,29 @@
+
+
+** fully NIO based:
+
+The database server and the network layer are both based
+on an implemention on the java nio libary.
+
+I've choices NIO because I had no real experiance with it 
+so it was a nice opertunty to learn it.
+
+Working with it is real harder then it seems at first hand.
+To get all details right is even working around jvm bugs.
+
+
+** Proxy classes
+
+I see proxy classes heavly used in modren (ee) server based 
+applictions, mostly even without the programmer noticing it.
+
+It provides a nice layer to dynamicly plugin the networking layer
+between the database and the client.
+
+
+** Bean bases server
+
+Made a simple implemention of how EE containers manages the backend
+beans and depecicies.
+
+
